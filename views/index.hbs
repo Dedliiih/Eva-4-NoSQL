@@ -1,0 +1,91 @@
+<html lang='es'>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Gestión de la Empresa</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <script src='https://cdn.tailwindcss.com'></script>
+  </head>
+  <body class='bg-gray-50 min-h-screen flex flex-col'>
+
+    <!-- Navbar -->
+    <nav class='bg-blue-700 text-white shadow px-6 py-4 flex justify-between items-center'>
+      <a href='/' class='text-2xl font-bold hover:text-blue-300'>Gestión Empresa</a>
+      <div class='space-x-6'>
+        <a href='/productos' class='hover:text-blue-300'>Productos</a>
+        <a href='/clientes' class='hover:text-blue-300'>Clientes</a>
+        <a href='/pedidos' class='hover:text-blue-300'>Pedidos</a>
+      </div>
+    </nav>
+
+    <!-- Main -->
+    <main class='container mx-auto px-6 py-16 flex flex-col gap-8 max-w-4xl'>
+
+      <h1 class='text-center text-4xl font-bold mb-12 text-gray-900'>Bienvenido al sistema de gestión</h1>
+
+      <div class='space-y-6'>
+        <!-- Producto -->
+        <a href='/productos' class='flex items-center gap-6 p-6 bg-white rounded-lg shadow hover:shadow-lg transition no-underline'>
+          <div class='bg-blue-600 text-white rounded-full p-4'>
+            <!-- ícono simple con SVG -->
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              class='h-8 w-8'
+              fill='none'
+              stroke='currentColor'
+              stroke-width='2'
+              viewBox='0 0 24 24'
+              stroke-linecap='round'
+              stroke-linejoin='round'
+            ><path d='M20 6L9 17l-5-5' /></svg>
+          </div>
+          <div>
+            <h2 class='text-2xl font-semibold text-gray-900'>Productos</h2>
+            <p class='text-gray-700'>Gestiona el inventario de productos.</p>
+          </div>
+        </a>
+
+        <!-- Clientes -->
+        <a href='/clientes' class='flex items-center gap-6 p-6 bg-white rounded-lg shadow hover:shadow-lg transition no-underline'>
+          <div class='bg-green-600 text-white rounded-full p-4'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              class='h-8 w-8'
+              fill='none'
+              stroke='currentColor'
+              stroke-width='2'
+              viewBox='0 0 24 24'
+              stroke-linecap='round'
+              stroke-linejoin='round'
+            ><circle cx='12' cy='7' r='4' /><path d='M5.5 21a8.38 8.38 0 0113 0' /></svg>
+          </div>
+          <div>
+            <h2 class='text-2xl font-semibold text-gray-900'>Clientes</h2>
+            <p class='text-gray-700'>Administra la información de tus clientes.</p>
+          </div>
+        </a>
+
+        <!-- Pedidos -->
+        <a href='/pedidos' class='flex items-center gap-6 p-6 bg-white rounded-lg shadow hover:shadow-lg transition no-underline'>
+          <div class='bg-yellow-500 text-white rounded-full p-4'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              class='h-8 w-8'
+              fill='none'
+              stroke='currentColor'
+              stroke-width='2'
+              viewBox='0 0 24 24'
+              stroke-linecap='round'
+              stroke-linejoin='round'
+            ><path d='M3 10h11M9 21V3' /></svg>
+          </div>
+          <div>
+            <h2 class='text-2xl font-semibold text-gray-900'>Pedidos</h2>
+            <p class='text-gray-700'>Registra y revisa pedidos realizados.</p>
+          </div>
+        </a>
+
+      </div>
+    </main>
+
+  </body>
+</html>
