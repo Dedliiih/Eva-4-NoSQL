@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Clientes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-50 min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="bg-blue-700 text-white shadow px-6 py-4 flex justify-between items-center">
+      <a href="/" class="text-2xl font-bold hover:text-blue-300">Gestión Empresa</a>
+      <div class="space-x-6">
+        <a href="/productos" class="hover:text-blue-300">Productos</a>
+        <a href="/clientes" class="hover:text-blue-300 font-semibold underline">Clientes</a>
+        <a href="/pedidos" class="hover:text-blue-300">Pedidos</a>
+      </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="container mx-auto px-6 py-12 max-w-5xl flex flex-col gap-10">
+      <!-- Encabezado y botón -->
+      <div class="flex justify-between items-center">
+        <h1 class="text-3xl font-bold text-gray-900">Clientes</h1>
+        <a href="/clientes/crear" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+          + Agregar cliente
+        </a>
+      </div>
+
+      <!-- Lista de clientes -->
+      <div class="space-y-4">
+        {{#each clients}}
+        <div class="flex items-start gap-6 p-6 bg-white rounded-lg shadow hover:shadow-lg transition">
+          <!-- Icono -->
+          <div class="bg-blue-600 text-white rounded-full p-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" stroke="currentColor"
+              stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 6L9 17l-5-5"/>
+            </svg>
+          </div>
+          <!-- Datos del cliente -->
+          <div class="flex-1">
+            <h2 class="text-xl font-semibold text-gray-900">{{name}}</h2>
+            <p class="text-gray-700 text-sm">RUT: {{rut}}</p>
+            <p class="text-gray-700 text-sm">Email: {{email}}</p>
+            <p class="text-gray-700 text-sm">
+              Dirección: {{address.street}} {{address.houseNumber}}, {{address.city}}
+            </p>
+          </div>
+          <!-- Acciones -->
+          <div class="flex gap-3">
+            <a href="/clientes/editar/{{_id}}" class="px-4 py-2 bg-yellow-400 text-white rounded hover:bg-yellow-500 transition">
+              Editar
+            </a>
+            <form action="/clientes/eliminar/{{_id}}" method="POST" onsubmit="return confirm('¿Eliminar este cliente?');">
+              <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">
+                Eliminar
+              </button>
+            </form>
+          </div>
+        </div>
+        {{/each}}
+
+        {{^clients}}
+        <p class="text-gray-500 text-center mt-12">No hay clientes registrados aún.</p>
+        {{/clients}}
+      </div>
+    </main>
+
+  </body>
+</html>

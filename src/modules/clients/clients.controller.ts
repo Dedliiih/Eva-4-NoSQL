@@ -1,0 +1,42 @@
+import { Controller, Get, Render, Redirect, Post, Body, Param } from '@nestjs/common';
+import { ClientsService } from './clients.service';
+import { CreateClientDto } from './dto/create.client-dto';
+import { Client, ClientDocument } from './schemas/client.schema';
+
+@Controller('clientes')
+export class ClientsController {
+  constructor(private readonly clientsService: ClientsService) {}
+  @Get()
+  @Render('clients.hbs')
+  async getClients(): Promise<{ clients: Client[] }> {
+    const clients = await this.clientsService.getClients();
+    return { clients };
+  }
+
+  @Get('crear')
+  @Render('create-client.hbs')
+  async getCreateClient() {}
+
+  @Post()
+  @Redirect('/clientes')
+  async createClient(@Body() body: any): Promise<ClientDocument> {
+    const clientData: CreateClientDto = {
+      name: body.name,
+      rut: body.rut,
+      email: body.email,
+      address: {
+        city: body['address.city'],
+        street: body['address.street'],
+        houseNumber: Number(body['address.houseNumber'])
+      }
+    };
+
+    return await this.clientsService.createClient(clientData);
+  }
+
+  @Post('/eliminar/:id')
+  @Redirect('/clientes')
+  async deleteClient(@Param('id') clientId: string) {
+    return await this.clientsService.deleteClient(clientId);
+  }
+}
