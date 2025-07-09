@@ -20,19 +20,8 @@ export class ClientsController {
 
   @Post()
   @Redirect('/clientes')
-  async createClient(@Body() body: any): Promise<ClientDocument> {
-    const clientData: CreateClientDto = {
-      name: body.name,
-      rut: body.rut,
-      email: body.email,
-      address: {
-        city: body['address.city'],
-        street: body['address.street'],
-        houseNumber: Number(body['address.houseNumber'])
-      }
-    };
-
-    return await this.clientsService.createClient(clientData);
+  async createClient(@Body() createClientDto: CreateClientDto): Promise<ClientDocument> {
+    return await this.clientsService.createClient(createClientDto);
   }
 
   @Post('/eliminar/:id')
