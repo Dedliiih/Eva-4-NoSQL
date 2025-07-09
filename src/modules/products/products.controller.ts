@@ -34,7 +34,7 @@ export class ProductsController {
 
   @Get('editar/:id')
   @Render('edit-product.hbs')
-  async getUpdateProduct(@Param('id') productId: string) {
+  async getUpdateProduct(@Param('id') productId: string): Promise<{ product: Product | null }> {
     const product = await this.productsService.getProductById(productId);
     return { product };
   }

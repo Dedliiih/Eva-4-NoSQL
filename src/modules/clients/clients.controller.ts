@@ -2,6 +2,7 @@ import { Controller, Get, Render, Redirect, Post, Body, Param } from '@nestjs/co
 import { ClientsService } from './clients.service';
 import { CreateClientDto } from './dto/create.client-dto';
 import { Client, ClientDocument } from './schemas/client.schema';
+import { UpdateClientDto } from './dto/update.client-dto';
 
 @Controller('clientes')
 export class ClientsController {
@@ -38,5 +39,18 @@ export class ClientsController {
   @Redirect('/clientes')
   async deleteClient(@Param('id') clientId: string) {
     return await this.clientsService.deleteClient(clientId);
+  }
+
+  @Get('/editar/:id')
+  @Render('edit-client.hbs')
+  async getEditClient(@Param('id') clientId: string): Promise<{ client: Client | null }> {
+    const client = await this.clientsService.getClientById(clientId);
+    return { client };
+  }
+
+  @Post('/editar/:id')
+  @Redirect('/clientes')
+  async editClient(@Param('id') clientId: string, @Body() updateClientDto: UpdateClientDto) {
+    return await this.clientsService.editClient(clientId, updateClientDto);
   }
 }
