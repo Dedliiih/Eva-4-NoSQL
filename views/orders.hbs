@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Órdenes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav class="bg-blue-700 text-white shadow px-6 py-4 flex justify-between items-center">
+    <a href="/" class="text-2xl font-bold hover:text-blue-300">Gestión Empresa</a>
+    <div class="space-x-6">
+      <a href="/productos" class="hover:text-blue-300">Productos</a>
+      <a href="/clientes" class="hover:text-blue-300">Clientes</a>
+      <a href="/ordenes" class="hover:text-blue-300 underline font-semibold">Órdenes</a>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="container mx-auto px-6 py-12 max-w-5xl flex flex-col gap-10">
+
+    <!-- Encabezado -->
+    <div class="flex justify-between items-center">
+      <h1 class="text-3xl font-bold text-gray-900">Órdenes</h1>
+      <a href="/pedidos/crear" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+        + Nueva orden
+      </a>
+    </div>
+
+    <!-- Lista de órdenes -->
+    <div class="space-y-6">
+      {{#each orders}}
+      <div class="bg-white shadow p-6 rounded-lg space-y-3">
+        <h2 class="text-xl font-semibold text-gray-800">
+          Cliente: {{client}}
+        </h2>
+        
+        <p class="text-gray-700 font-medium">Productos:</p>
+        <ul class="list-disc list-inside text-gray-700">
+          {{#each products}}
+            <li>{{this}}</li>
+          {{/each}}
+        </ul>
+
+        <p class="text-gray-900 font-bold">Precio total: ${{price}}</p>
+
+        <!-- Botones -->
+        <div class="flex gap-3 pt-3">
+          <form action="/pedidos/eliminar/{{_id}}" method="POST" onsubmit="return confirm('¿Eliminar esta orden?');">
+            <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">
+              Eliminar
+            </button>
+          </form>
+        </div>
+      </div>
+      {{/each}}
+
+      {{^orders}}
+      <p class="text-center text-gray-500 mt-12">No hay órdenes registradas aún.</p>
+      {{/orders}}
+    </div>
+
+  </main>
+
+</body>
+</html>
