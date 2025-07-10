@@ -6,7 +6,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  @Render('index.hbs')
+  @Render('index')
   getHello() {
     return { message: 'Hello World!' };
   }
