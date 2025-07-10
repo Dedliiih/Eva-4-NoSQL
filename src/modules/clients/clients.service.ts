@@ -10,11 +10,11 @@ export class ClientsService {
   constructor(@InjectModel(Client.name) private clientModel: Model<Client>) {}
 
   async getClients(): Promise<Client[]> {
-    return await this.clientModel.find().exec();
+    return await this.clientModel.find().lean().exec();
   }
 
   async getClientById(clientId: string): Promise<Client | null> {
-    return await this.clientModel.findById(clientId).exec();
+    return await this.clientModel.findById(clientId).lean().exec();
   }
 
   async createClient(createClientDto: CreateClientDto): Promise<ClientDocument> {

@@ -10,11 +10,11 @@ export class ProductsService {
   constructor(@InjectModel(Product.name) private productModel: Model<Product>) {}
 
   async getProducts(): Promise<Product[]> {
-    return await this.productModel.find().exec();
+    return await this.productModel.find().lean().exec();
   }
 
   async getProductById(productId: string): Promise<Product | null> {
-    return await this.productModel.findById(productId);
+    return await this.productModel.findById(productId).lean();
   }
 
   async createProduct(createProductDto: CreateProductDto): Promise<ProductDocument> {

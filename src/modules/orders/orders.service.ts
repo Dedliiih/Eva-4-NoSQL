@@ -35,7 +35,7 @@ export class OrdersService {
   }
 
   async findAll() {
-    return await this.orderModel.find().exec();
+    return await this.orderModel.find().lean().exec();
   }
 
   async remove(id: string) {
