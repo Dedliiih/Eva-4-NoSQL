@@ -1,19 +1,29 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Render, Redirect } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Render, Redirect } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
+import { ProductsService } from '../products/products.service';
+import { ClientsService } from '../clients/clients.service';
 
 @Controller('pedidos')
 export class OrdersController {
-  constructor(private readonly ordersService: OrdersService) {}
+  constructor(
+    private readonly ordersService: OrdersService,
+    private readonly clientsService: ClientsService,
+    private readonly productsService: ProductsService
+  ) {}
 
   @Get('crear')
   @Render('create-order.hbs')
-  async getCreateOrder() {}
+  async getCreateOrder() {
+    const products = await this.productsService.getProducts();
+    const clients = await this.clientsService.getClients();
+    return { clients, products, productsJson: JSON.stringify(products) };
+  }
 
   @Post()
   @Redirect('/pedidos')
   create(@Body() createOrderDto: CreateOrderDto) {
+    console.log(createOrderDto);
     return this.ordersService.create(createOrderDto);
   }
 

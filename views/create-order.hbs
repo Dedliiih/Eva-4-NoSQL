@@ -25,33 +25,42 @@
 
     <form action="/pedidos" method="POST" class="bg-white p-6 rounded-lg shadow space-y-6">
 
-      <!-- Cliente -->
+      <!-- Cliente (select dinámico) -->
       <div>
         <label for="client" class="block font-semibold text-gray-700 mb-2">Nombre del Cliente</label>
-        <input
-          type="text"
+        <select
           name="client"
           id="client"
           required
           class="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+        >
+          <option value="">Seleccione un cliente</option>
+          {{#each clients}}
+            <option value="{{this.name}}">{{this.name}}</option>
+          {{/each}}
+        </select>
       </div>
 
       <!-- Productos -->
       <div>
         <label class="block font-semibold text-gray-700 mb-2">Productos</label>
         <div id="products-container" class="space-y-3">
-          <input
-            type="text"
+          <!-- Primer select por defecto -->
+          <select
             name="products"
             required
-            placeholder="Nombre del producto"
             class="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+          >
+            <option value="">Seleccione un producto</option>
+            {{#each products}}
+              <option value="{{this.name}}">{{this.name}}</option>
+            {{/each}}
+          </select>
         </div>
+
         <button
           type="button"
-          onclick="addProductInput()"
+          onclick="addProductSelect()"
           class="mt-3 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
         >
           + Agregar producto
@@ -71,16 +80,30 @@
     </form>
   </main>
 
+  <!-- Script para agregar más selects de productos -->
   <script>
-    function addProductInput() {
+    const productsData = {{{ productsJson }}}; // JSON.stringify(products) desde el backend
+
+    function addProductSelect() {
       const container = document.getElementById('products-container');
-      const input = document.createElement('input');
-      input.type = 'text';
-      input.name = 'products';
-      input.placeholder = 'Nombre del producto';
-      input.required = true;
-      input.className = 'w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500';
-      container.appendChild(input);
+      const select = document.createElement('select');
+      select.name = 'products';
+      select.required = true;
+      select.className = 'w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500';
+
+      const placeholderOption = document.createElement("option");
+      placeholderOption.value = '';
+      placeholderOption.textContent = "Seleccione un producto";
+      select.appendChild(placeholderOption);
+
+      productsData.forEach(product => {
+        const option = document.createElement('option');
+        option.value = product.name;
+        option.textContent = product.name;
+        select.appendChild(option);
+      });
+
+      container.appendChild(select);
     }
   </script>
 
